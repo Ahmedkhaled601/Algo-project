@@ -1,0 +1,37 @@
+def longest_subarray_non_recursive(nums):
+
+    mp = {0: -1}
+
+    prefix_sum = 0
+    max_len = 0
+
+    for i in range(len(nums)):
+
+        if nums[i] == 0:
+            prefix_sum -= 1
+        else:
+            prefix_sum += 1
+
+        if prefix_sum in mp:
+            current_len = i - mp[prefix_sum]
+            max_len = max(max_len, current_len)
+        else:
+            mp[prefix_sum] = i
+
+    return max_len
+
+
+
+while True:
+
+    nums = list(map(int, input(
+        "Enter binary array elements separated by space: "
+    ).split()))
+
+    print("Longest Subarray Length =",
+          longest_subarray_non_recursive(nums))
+
+    choice = input("Do you want to continue? (yes/no): ")
+
+    if choice.lower() != 'yes':
+        break

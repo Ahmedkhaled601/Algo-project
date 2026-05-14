@@ -1,0 +1,45 @@
+def count_equal(nums, start, end):
+
+    zeros = 0
+    ones = 0
+
+    for i in range(start, end + 1):
+
+        if nums[i] == 0:
+            zeros += 1
+        else:
+            ones += 1
+
+    return zeros == ones
+
+
+def recursive_solve(nums, start, end):
+
+    if start >= end:
+        return 0
+
+    if count_equal(nums, start, end):
+        return end - start + 1
+
+    left = recursive_solve(nums, start + 1, end)
+
+    right = recursive_solve(nums, start, end - 1)
+
+    return max(left, right)
+
+nums = list(map(int, input("Enter binary array elements separated by space: ").split()))
+
+print("Longest Subarray Length =", recursive_solve(nums, 0, len(nums)-1))
+while True:
+
+    nums = list(map(int, input(
+        "Enter binary array elements separated by space: "
+    ).split()))
+
+    print("Longest Subarray Length =",
+          recursive_solve(nums, 0, len(nums)-1))
+
+    choice = input("Do you want to continue? (yes/no): ")
+
+    if choice.lower() != 'yes':
+        break
